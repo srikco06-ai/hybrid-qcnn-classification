@@ -19,6 +19,7 @@ Developed as part of the IIT Delhi Continuing Education Programme in Quantum Com
 * Comparative Analysis against ANN and CNN Baselines
 * MNIST and Fashion-MNIST Benchmark Evaluation
 * Interactive Streamlit Dashboard
+* PennyLane + PyTorch Integration
 
 ---
 
@@ -53,6 +54,9 @@ Quantum Convolution Layer
 Quantum Pooling Layer
       │
       ▼
+Strongly Entangling Layers
+      │
+      ▼
 Measurement Layer
       │
       ▼
@@ -81,11 +85,11 @@ Classification Output
 
 ## Model Comparison
 
-| Model | Architecture Type                |
-| ----- | -------------------------------- |
-| ANN   | Fully Connected Neural Network   |
-| CNN   | Convolutional Neural Network     |
-| QCNN  | Hybrid Quantum-Classical Network |
+| Model | Architecture Type                       |
+| ----- | --------------------------------------- |
+| ANN   | Fully Connected Neural Network          |
+| CNN   | Convolutional Neural Network            |
+| QCNN  | Hybrid Quantum-Classical Neural Network |
 
 ---
 
@@ -138,6 +142,7 @@ The QCNN achieved approximately **44× fewer trainable parameters** than the CNN
 
 * Streamlit
 * Plotly
+* Matplotlib
 
 ---
 
@@ -153,21 +158,34 @@ hybrid-qcnn-classification
 │       ├── 2_Architecture.py
 │       ├── 3_Dataset.py
 │       ├── 4_Model_Comparison.py
-│       └── 5_Results.py
+│       ├── 5_Results.py
+│       └── 6_QCNN_Implementation.py
 │
 ├── src/
 │   ├── classical/
 │   │   ├── ann_baseline.py
 │   │   └── cnn_baseline.py
 │   │
-│   └── quantum/
-│       ├── circuits.py
-│       ├── qcnn.py
-│       └── inference.py
+│   ├── quantum/
+│   │   ├── circuits.py
+│   │   ├── qcnn.py
+│   │   └── inference.py
+│   │
+│   └── utils.py
+│
+├── assets/
+│   ├── architecture/
+│   ├── datasets/
+│   ├── diagrams/
+│   └── results/
 │
 ├── docs/
-├── screenshots/
+│   ├── GROUP-8_QCNN_MINST_FashionMNIST.pptx
+│   └── QCNN_Report_V1.0.pdf
+│
 ├── requirements.txt
+├── LICENSE
+├── .gitignore
 └── README.md
 ```
 
@@ -176,7 +194,7 @@ hybrid-qcnn-classification
 ## Setup
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/srikco06-ai/hybrid-qcnn-classification.git
 
 cd hybrid-qcnn-classification
 
@@ -205,7 +223,7 @@ streamlit run app/Home.py
 * Add live image inference capability
 * Evaluate larger benchmark datasets
 * Compare additional quantum neural network architectures
-* Deploy as a public web application
+* Benchmark on real quantum hardware
 
 ---
 
@@ -227,8 +245,14 @@ Through this project, the following concepts were explored:
 
 ### Sri Krishna Chaitanya
 
-AI & Machine Learning Engineer
+AI/ML Developer
 
 Quantum Computing & Quantum Machine Learning
 
 FastAPI • Python • Next.js • GenAI Applications
+
+---
+
+## License
+
+This project is released under the MIT License.
