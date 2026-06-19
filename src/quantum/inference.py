@@ -1,9 +1,11 @@
 import torch
 
 
-def predict(model, image):
+def predict(model, image, device="cpu"):
 
     model.eval()
+
+    image = image.to(device)
 
     with torch.no_grad():
 
@@ -14,4 +16,22 @@ def predict(model, image):
             dim=1
         )
 
-    return prediction
+    return prediction.item()
+
+
+def predict_proba(model, image, device="cpu"):
+
+    model.eval()
+
+    image = image.to(device)
+
+    with torch.no_grad():
+
+        output = model(image)
+
+        probabilities = torch.softmax(
+            output,
+            dim=1
+        )
+
+    return probabilities.cpu().numpy()[0]

@@ -1,0 +1,7 @@
+{
+    "dataset": "MNIST",
+    "model": "QCNN",
+    "accuracy": 77.96,
+    "epochs": 10,
+    "parameters": 9482
+}

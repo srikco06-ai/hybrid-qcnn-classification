@@ -1,0 +1,7 @@
+{
+    "dataset": "MNIST",
+    "model": "CNN",
+    "accuracy": 99.14,
+    "epochs": 5,
+    "parameters": 421642
+}
