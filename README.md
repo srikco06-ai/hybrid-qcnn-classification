@@ -70,56 +70,68 @@ Classification Output
 ### MNIST Dataset
 
 * Handwritten digit recognition
-* 28 × 28 grayscale images
+* 28×28 grayscale images
 * 10 classification classes
-* Standard computer vision benchmark
 
 ### Fashion-MNIST Dataset
 
 * Fashion article classification
-* 28 × 28 grayscale images
+* 28×28 grayscale images
 * 10 classification classes
-* More challenging than MNIST
-
----
-
-## Model Comparison
-
-| Model | Architecture Type                       |
-| ----- | --------------------------------------- |
-| ANN   | Fully Connected Neural Network          |
-| CNN   | Convolutional Neural Network            |
-| QCNN  | Hybrid Quantum-Classical Neural Network |
 
 ---
 
 ## Experimental Results
 
-### MNIST Results
+### Original IIT Delhi Project Results
+
+#### MNIST
 
 | Model | Accuracy |
-| ----- | -------- |
-| ANN   | 98.00%   |
-| CNN   | 98.81%   |
-| QCNN  | 82.35%   |
+| ----- | -------: |
+| ANN   |   98.00% |
+| CNN   |   98.81% |
+| QCNN  |   82.35% |
 
-### Fashion-MNIST Results
+#### Fashion-MNIST
 
 | Model | Accuracy |
-| ----- | -------- |
-| ANN   | 88.74%   |
-| CNN   | 92.06%   |
-| QCNN  | 59.35%   |
+| ----- | -------: |
+| ANN   |   88.74% |
+| CNN   |   92.06% |
+| QCNN  |   59.35% |
 
-### Parameter Efficiency
+---
+
+### Reproduced Results
+
+#### MNIST
+
+| Model | Accuracy |
+| ----- | -------: |
+| ANN   |   97.49% |
+| CNN   |   99.12% |
+| QCNN  |   82.31% |
+
+#### Fashion-MNIST
+
+| Model | Accuracy |
+| ----- | -------: |
+| ANN   |   87.34% |
+| CNN   |   91.59% |
+| QCNN  |   78.44% |
+
+---
+
+## Parameter Efficiency
 
 | Model | Parameters |
-| ----- | ---------- |
-| ANN   | 235,146    |
-| CNN   | 421,642    |
-| QCNN  | 9,482      |
+| ----- | ---------: |
+| ANN   |    235,146 |
+| CNN   |    421,642 |
+| QCNN  |      9,482 |
 
-The QCNN achieved approximately **44× fewer trainable parameters** than the CNN baseline while maintaining meaningful classification performance.
+QCNN achieves substantial parameter reduction while maintaining meaningful classification performance.
 
 ---
 
@@ -134,60 +146,15 @@ The QCNN achieved approximately **44× fewer trainable parameters** than the CNN
 ### Machine Learning
 
 * PyTorch
-* Scikit-Learn
 * NumPy
 * Pandas
+* Scikit-Learn
 
 ### Application Layer
 
 * Streamlit
 * Plotly
 * Matplotlib
-
----
-
-## Project Structure
-
-```text
-hybrid-qcnn-classification
-│
-├── app/
-│   ├── Home.py
-│   └── pages/
-│       ├── 1_Project_Overview.py
-│       ├── 2_Architecture.py
-│       ├── 3_Dataset.py
-│       ├── 4_Model_Comparison.py
-│       ├── 5_Results.py
-│       └── 6_QCNN_Implementation.py
-│
-├── src/
-│   ├── classical/
-│   │   ├── ann_baseline.py
-│   │   └── cnn_baseline.py
-│   │
-│   ├── quantum/
-│   │   ├── circuits.py
-│   │   ├── qcnn.py
-│   │   └── inference.py
-│   │
-│   └── utils.py
-│
-├── assets/
-│   ├── architecture/
-│   ├── datasets/
-│   ├── diagrams/
-│   └── results/
-│
-├── docs/
-│   ├── GROUP-8_QCNN_MINST_FashionMNIST.pptx
-│   └── QCNN_Report_V1.0.pdf
-│
-├── requirements.txt
-├── LICENSE
-├── .gitignore
-└── README.md
-```
 
 ---
 
@@ -218,26 +185,11 @@ streamlit run app/Home.py
 ## Future Improvements
 
 * Increase quantum circuit depth
-* Explore alternative quantum embedding strategies
-* Implement Quantum Vision Transformer architectures
-* Add live image inference capability
-* Evaluate larger benchmark datasets
-* Compare additional quantum neural network architectures
-* Benchmark on real quantum hardware
-
----
-
-## Learning Outcomes
-
-Through this project, the following concepts were explored:
-
-* Quantum Computing Fundamentals
-* Quantum Machine Learning
-* Variational Quantum Circuits
-* Quantum Convolutional Neural Networks
-* Hybrid Quantum-Classical Architectures
-* Quantum Feature Encoding
-* Model Evaluation and Benchmarking
+* Explore alternative quantum embeddings
+* Implement Quantum Vision Transformers
+* Add image inference UI
+* Evaluate larger datasets
+* Benchmark on quantum hardware
 
 ---
 
@@ -245,7 +197,7 @@ Through this project, the following concepts were explored:
 
 ### Sri Krishna Chaitanya
 
-AI/ML Developer
+AI & Machine Learning Engineer
 
 Quantum Computing & Quantum Machine Learning
 
@@ -255,4 +207,4 @@ FastAPI • Python • Next.js • GenAI Applications
 
 ## License
 
-This project is released under the MIT License.
+MIT License

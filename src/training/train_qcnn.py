@@ -1,6 +1,8 @@
 import json
+import random
 from pathlib import Path
 
+import numpy as np
 import torch
 import torch.nn as nn
 
@@ -10,6 +12,15 @@ from src.utils import (
     get_device,
     count_parameters
 )
+
+SEED = 42
+
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+random.seed(SEED)
+
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
 
 EPOCHS = 10
 LEARNING_RATE = 0.002
@@ -70,6 +81,7 @@ def train():
     )
 
     best_accuracy = 0.0
+    best_state_dict = None
 
     for epoch in range(EPOCHS):
 
@@ -103,10 +115,14 @@ def train():
             device
         )
 
-        best_accuracy = max(
-            best_accuracy,
-            accuracy
-        )
+        if accuracy > best_accuracy:
+
+            best_accuracy = accuracy
+
+            best_state_dict = {
+                k: v.cpu().clone()
+                for k, v in model.state_dict().items()
+            }
 
         print(
             f"Epoch [{epoch + 1}/{EPOCHS}] "
@@ -129,7 +145,7 @@ def train():
     )
 
     torch.save(
-        model.state_dict(),
+        best_state_dict,
         CHECKPOINT_PATH
     )
 

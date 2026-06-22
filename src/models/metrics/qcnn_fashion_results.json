@@ -1,7 +1,7 @@
 {
-    "dataset": "MNIST",
+    "dataset": "Fashion-MNIST",
     "model": "QCNN",
-    "accuracy": 82.31,
+    "accuracy": 78.44,
     "epochs": 10,
     "parameters": 9482
 }

@@ -7,7 +7,9 @@ import torch
 import torch.nn as nn
 
 from src.classical.cnn_baseline import CNN
-from src.data.datasets import get_mnist_loaders
+from src.data.datasets import (
+    get_fashion_mnist_loaders
+)
 from src.utils import (
     get_device,
     count_parameters
@@ -26,11 +28,11 @@ EPOCHS = 5
 LEARNING_RATE = 0.001
 
 CHECKPOINT_PATH = (
-    "src/models/checkpoints/cnn_mnist.pth"
+    "src/models/checkpoints/cnn_fashion.pth"
 )
 
 METRICS_PATH = (
-    "src/models/metrics/cnn_results.json"
+    "src/models/metrics/cnn_fashion_results.json"
 )
 
 
@@ -68,7 +70,7 @@ def train():
     print(f"Using device: {device}")
 
     train_loader, test_loader = (
-        get_mnist_loaders()
+        get_fashion_mnist_loaders()
     )
 
     model = CNN().to(device)
@@ -145,7 +147,7 @@ def train():
     )
 
     metrics = {
-        "dataset": "MNIST",
+        "dataset": "Fashion-MNIST",
         "model": "CNN",
         "accuracy": round(
             best_accuracy,

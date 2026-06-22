@@ -1,7 +1,7 @@
 {
-    "dataset": "MNIST",
+    "dataset": "Fashion-MNIST",
     "model": "CNN",
-    "accuracy": 99.12,
+    "accuracy": 91.59,
     "epochs": 5,
     "parameters": 421642
 }

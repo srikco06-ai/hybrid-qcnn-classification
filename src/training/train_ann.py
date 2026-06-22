@@ -1,11 +1,26 @@
 import json
+import random
+from pathlib import Path
+
+import numpy as np
 import torch
 import torch.nn as nn
 
 from src.classical.ann_baseline import ANN
 from src.data.datasets import get_mnist_loaders
-from src.utils import get_device
+from src.utils import (
+    get_device,
+    count_parameters
+)
 
+SEED = 42
+
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
 
 EPOCHS = 5
 LEARNING_RATE = 0.001
@@ -110,6 +125,20 @@ def train():
             f"Accuracy: {accuracy:.2f}%"
         )
 
+    Path(
+        "src/models/checkpoints"
+    ).mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    Path(
+        "src/models/metrics"
+    ).mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
     torch.save(
         model.state_dict(),
         CHECKPOINT_PATH
@@ -123,10 +152,8 @@ def train():
             2
         ),
         "epochs": EPOCHS,
-        "parameters": sum(
-            p.numel()
-            for p in model.parameters()
-            if p.requires_grad
+        "parameters": count_parameters(
+            model
         )
     }
 
@@ -158,7 +185,7 @@ def train():
 
     print(
         f"Parameters: "
-        f"{metrics['parameters']:,}"
+        f"{count_parameters(model):,}"
     )
 
 

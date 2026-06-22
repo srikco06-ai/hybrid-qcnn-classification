@@ -6,8 +6,10 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from src.classical.cnn_baseline import CNN
-from src.data.datasets import get_mnist_loaders
+from src.data.datasets import (
+    get_fashion_mnist_loaders
+)
+from src.quantum.qcnn import QCNN
 from src.utils import (
     get_device,
     count_parameters
@@ -15,22 +17,22 @@ from src.utils import (
 
 SEED = 42
 
-random.seed(SEED)
-np.random.seed(SEED)
 torch.manual_seed(SEED)
+np.random.seed(SEED)
+random.seed(SEED)
 
 if torch.cuda.is_available():
     torch.cuda.manual_seed_all(SEED)
 
-EPOCHS = 5
-LEARNING_RATE = 0.001
+EPOCHS = 10
+LEARNING_RATE = 0.002
 
 CHECKPOINT_PATH = (
-    "src/models/checkpoints/cnn_mnist.pth"
+    "src/models/checkpoints/qcnn_fashion.pth"
 )
 
 METRICS_PATH = (
-    "src/models/metrics/cnn_results.json"
+    "src/models/metrics/qcnn_fashion_results.json"
 )
 
 
@@ -68,10 +70,10 @@ def train():
     print(f"Using device: {device}")
 
     train_loader, test_loader = (
-        get_mnist_loaders()
+        get_fashion_mnist_loaders()
     )
 
-    model = CNN().to(device)
+    model = QCNN().to(device)
 
     criterion = nn.CrossEntropyLoss()
 
@@ -81,6 +83,7 @@ def train():
     )
 
     best_accuracy = 0.0
+    best_state_dict = None
 
     for epoch in range(EPOCHS):
 
@@ -114,10 +117,14 @@ def train():
             device
         )
 
-        best_accuracy = max(
-            best_accuracy,
-            accuracy
-        )
+        if accuracy > best_accuracy:
+
+            best_accuracy = accuracy
+
+            best_state_dict = {
+                k: v.cpu().clone()
+                for k, v in model.state_dict().items()
+            }
 
         print(
             f"Epoch [{epoch + 1}/{EPOCHS}] "
@@ -140,13 +147,13 @@ def train():
     )
 
     torch.save(
-        model.state_dict(),
+        best_state_dict,
         CHECKPOINT_PATH
     )
 
     metrics = {
-        "dataset": "MNIST",
-        "model": "CNN",
+        "dataset": "Fashion-MNIST",
+        "model": "QCNN",
         "accuracy": round(
             best_accuracy,
             2
