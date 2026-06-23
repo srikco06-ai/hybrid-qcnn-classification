@@ -4,39 +4,83 @@
 
 This project explores Hybrid Quantum-Classical Machine Learning using Quantum Convolutional Neural Networks (QCNNs) for image classification.
 
-The objective is to investigate whether parameterized quantum circuits can perform meaningful feature extraction while using significantly fewer trainable parameters than traditional deep learning architectures.
+The project was originally developed as part of the IIT Delhi Continuing Education Programme in Quantum Computing and Machine Learning and later extended into a reproducible research and portfolio project.
 
-Developed as part of the IIT Delhi Continuing Education Programme in Quantum Computing and Machine Learning.
+The objective is to investigate whether parameterized quantum circuits can perform meaningful image classification while using significantly fewer trainable parameters than traditional deep learning architectures.
 
 ---
 
-## Key Features
+## Key Highlights
+
+| Metric                      | Value     |
+| --------------------------- | --------- |
+| QCNN Parameters             | 9,482     |
+| CNN Parameters              | 421,642   |
+| ANN Parameters              | 235,146   |
+| MNIST QCNN Accuracy         | 82.31%    |
+| Fashion-MNIST QCNN Accuracy | 78.44%    |
+| Quantum Framework           | PennyLane |
+| Deep Learning Framework     | PyTorch   |
+
+### Main Finding
+
+The QCNN achieved meaningful classification performance while using approximately **44× fewer trainable parameters** than the CNN baseline.
+
+---
+
+## Project Documentation
+
+This repository includes the original project deliverables:
+
+* `docs/QCNN_Report_V1.0.pdf`
+* `docs/GROUP-8_QCNN_MINST_FashionMNIST.pptx`
+
+---
+
+## Screenshots
+
+### Home Dashboard
+
+![Home](screenshots/home.png)
+
+### Architecture Dashboard
+
+![Architecture](screenshots/architecture.png)
+
+### Model Comparison
+
+![Comparison](screenshots/comparison.png)
+
+### Experimental Results Dashboard
+
+![Results](screenshots/results.png)
+
+### QCNN Implementation Dashboard
+
+![QCNN Implementation](screenshots/qcnn_implementation.png)
+
+---
+
+## Features
 
 * Hybrid Quantum-Classical Learning Architecture
 * Quantum Convolutional Neural Network (QCNN)
 * Variational Quantum Circuits (VQC)
-* Angle Embedding for Quantum Feature Encoding
-* Comparative Analysis against ANN and CNN Baselines
-* MNIST and Fashion-MNIST Benchmark Evaluation
+* Angle Embedding
+* Quantum Convolution
+* Quantum Pooling
+* Strongly Entangling Layers
+* ANN vs CNN vs QCNN Benchmarking
+* MNIST Classification
+* Fashion-MNIST Classification
 * Interactive Streamlit Dashboard
 * PennyLane + PyTorch Integration
 
 ---
 
-## Research Objectives
+## QCNN Architecture
 
-This project investigates:
-
-* Quantum feature extraction using variational quantum circuits
-* Parameter-efficient learning in near-term quantum systems
-* Performance comparison between classical and quantum models
-* Practical applications of Quantum Machine Learning for image classification
-
----
-
-## Architecture
-
-### Hybrid QCNN Pipeline
+### Hybrid Quantum Pipeline
 
 ```text
 Input Image
@@ -71,21 +115,23 @@ Classification Output
 
 * Handwritten digit recognition
 * 28×28 grayscale images
-* 10 classification classes
+* 60,000 training samples
+* 10,000 testing samples
+* 10 classes
 
 ### Fashion-MNIST Dataset
 
 * Fashion article classification
 * 28×28 grayscale images
-* 10 classification classes
+* 60,000 training samples
+* 10,000 testing samples
+* 10 classes
 
 ---
 
-## Experimental Results
+## Original IIT Delhi Project Results
 
-### Original IIT Delhi Project Results
-
-#### MNIST
+### Original MNIST Results
 
 | Model | Accuracy |
 | ----- | -------: |
@@ -93,7 +139,7 @@ Classification Output
 | CNN   |   98.81% |
 | QCNN  |   82.35% |
 
-#### Fashion-MNIST
+### Original Fashion-MNIST Results
 
 | Model | Accuracy |
 | ----- | -------: |
@@ -103,9 +149,9 @@ Classification Output
 
 ---
 
-### Reproduced Results
+## Reproduced Repository Results
 
-#### MNIST
+### Reproduced MNIST Results
 
 | Model | Accuracy |
 | ----- | -------: |
@@ -113,7 +159,7 @@ Classification Output
 | CNN   |   99.12% |
 | QCNN  |   82.31% |
 
-#### Fashion-MNIST
+### Reproduced Fashion-MNIST Results
 
 | Model | Accuracy |
 | ----- | -------: |
@@ -123,7 +169,7 @@ Classification Output
 
 ---
 
-## Parameter Efficiency
+## Parameter Comparison
 
 | Model | Parameters |
 | ----- | ---------: |
@@ -131,7 +177,21 @@ Classification Output
 | CNN   |    421,642 |
 | QCNN  |      9,482 |
 
-QCNN achieves substantial parameter reduction while maintaining meaningful classification performance.
+QCNN uses approximately **44× fewer parameters** than the CNN baseline.
+
+---
+
+## Reproduction Analysis
+
+The reproduced implementation successfully validated the original QCNN architecture.
+
+### Key Findings
+
+* QCNN reproduced MNIST performance within 0.04% of the original project.
+* Fashion-MNIST performance improved significantly under the current software environment.
+* CNN remained the highest-performing architecture on both datasets.
+* QCNN demonstrated strong parameter efficiency with only 9,482 trainable parameters.
+* The project validates the feasibility of Hybrid Quantum-Classical Learning for image classification tasks.
 
 ---
 
@@ -150,7 +210,7 @@ QCNN achieves substantial parameter reduction while maintaining meaningful class
 * Pandas
 * Scikit-Learn
 
-### Application Layer
+### Visualization and Dashboard
 
 * Streamlit
 * Plotly
@@ -158,7 +218,31 @@ QCNN achieves substantial parameter reduction while maintaining meaningful class
 
 ---
 
-## Setup
+## Project Structure
+
+```text
+hybrid-qcnn-classification
+│
+├── app/
+│   ├── Home.py
+│   └── pages/
+│
+├── src/
+│   ├── classical/
+│   ├── quantum/
+│   ├── training/
+│   └── data/
+│
+├── screenshots/
+├── docs/
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+---
+
+## Installation
 
 ```bash
 git clone https://github.com/srikco06-ai/hybrid-qcnn-classification.git
@@ -174,7 +258,7 @@ pip install -r requirements.txt
 
 ---
 
-## Launch Dashboard
+## Run the Application
 
 ```bash
 streamlit run app/Home.py
@@ -185,11 +269,12 @@ streamlit run app/Home.py
 ## Future Improvements
 
 * Increase quantum circuit depth
-* Explore alternative quantum embeddings
-* Implement Quantum Vision Transformers
-* Add image inference UI
-* Evaluate larger datasets
-* Benchmark on quantum hardware
+* Explore alternative quantum embedding strategies
+* Implement Quantum Vision Transformer architectures
+* Add image upload and live inference
+* Evaluate larger benchmark datasets
+* Benchmark on real quantum hardware
+* Compare additional quantum neural network architectures
 
 ---
 
