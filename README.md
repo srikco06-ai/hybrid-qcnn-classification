@@ -4,7 +4,7 @@
 
 This project explores Hybrid Quantum-Classical Machine Learning using Quantum Convolutional Neural Networks (QCNNs) for image classification.
 
-The project was originally developed as part of the IIT Delhi Continuing Education Programme in Quantum Computing and Machine Learning and later extended into a reproducible research and portfolio project.
+The work was originally developed as part of the IIT Delhi Continuing Education Programme in Quantum Computing and Machine Learning and later extended into a reproducible research and portfolio project.
 
 The objective is to investigate whether parameterized quantum circuits can perform meaningful image classification while using significantly fewer trainable parameters than traditional deep learning architectures.
 
@@ -193,6 +193,14 @@ The reproduced implementation successfully validated the original QCNN architect
 * QCNN demonstrated strong parameter efficiency with only 9,482 trainable parameters.
 * The project validates the feasibility of Hybrid Quantum-Classical Learning for image classification tasks.
 
+### Reproduction Notes
+
+The reproduced implementation was developed independently using PennyLane and PyTorch based on the original IIT Delhi QCNN project framework.
+
+Minor differences between the original and reproduced results may arise from variations in software versions, random initialization, optimization behavior, training environments, and hardware configurations.
+
+The primary objective of the reproduction study was to validate the QCNN architecture, benchmark its parameter efficiency, and evaluate its performance on MNIST and Fashion-MNIST datasets using a standalone implementation.
+
 ---
 
 ## Technology Stack
@@ -263,6 +271,16 @@ pip install -r requirements.txt
 ```bash
 streamlit run app/Home.py
 ```
+
+---
+
+## Live Demo
+
+Streamlit Application:
+
+Coming Soon
+
+> The application will be deployed on Streamlit Community Cloud.
 
 ---
 
