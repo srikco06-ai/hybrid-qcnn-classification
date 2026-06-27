@@ -1,119 +1,81 @@
+"""
+Phase 2.3 - Live Inference (Version 1)
+"""
+
+from pathlib import Path
+import sys
 import streamlit as st
 from PIL import Image
 
-st.set_page_config(
-    page_title="Live Inference",
-    page_icon="⚛️",
-    layout="wide",
-)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.inference import InferenceEngine
+
+st.set_page_config(page_title="Live Inference", page_icon="⚛️", layout="wide")
+
+@st.cache_resource
+def get_engine():
+    return InferenceEngine()
+
+engine = get_engine()
 
 st.title("⚛️ Live QCNN Image Inference")
-
-st.markdown(
-    """
-Run inference using the trained models included in this repository.
-
-Choose a dataset, select a model, upload an image, and proceed to prediction.
-"""
-)
-
-st.divider()
+st.write("Upload an image, choose a dataset and model, then click Predict.")
 
 left, right = st.columns([1, 2])
 
 with left:
+    dataset = st.selectbox("Dataset", ["MNIST", "Fashion-MNIST"])
+    model_name = st.selectbox("Model", ["ANN", "CNN", "QCNN"])
+    uploaded = st.file_uploader("Upload Image", type=["png", "jpg", "jpeg"])
+    predict = st.button("🚀 Predict", use_container_width=True)
 
-    st.subheader("Configuration")
-
-    dataset = st.selectbox(
-        "Dataset",
-        [
-            "MNIST",
-            "Fashion-MNIST",
-        ],
-    )
-
-    model_name = st.selectbox(
-        "Model",
-        [
-            "ANN",
-            "CNN",
-            "QCNN",
-        ],
-    )
-
-    uploaded_file = st.file_uploader(
-        "Upload Image",
-        type=[
-            "png",
-            "jpg",
-            "jpeg",
-        ],
-    )
-
+image = None
 with right:
-
     st.subheader("Image Preview")
-
-    if uploaded_file is not None:
-
-        image = Image.open(uploaded_file)
-
-        st.image(
-            image,
-            caption="Uploaded Image",
-            use_container_width=True,
-        )
-
+    if uploaded:
+        image = Image.open(uploaded).convert("L")
+        st.image(image, use_container_width=True)
     else:
-
-        st.info(
-            "Upload an image to preview it here."
-        )
+        st.info("Upload an image to preview.")
 
 st.divider()
 
-st.subheader("Selected Configuration")
+if predict:
+    if image is None:
+        st.warning("Please upload an image.")
+    else:
+        try:
+            with st.spinner("Running inference..."):
+                result = engine.predict_image(
+                    image=image,
+                    model_name=model_name,
+                    dataset=dataset,
+                )
 
-col1, col2 = st.columns(2)
+            a, b, c = st.columns(3)
+            a.metric("Prediction", result["label"])
+            b.metric("Confidence", f"{result['confidence']:.2f}%")
+            c.metric("Inference Time", f"{result['inference_time']:.2f} ms")
 
-with col1:
-    st.metric(
-        label="Dataset",
-        value=dataset,
-    )
+            st.subheader("Prediction Details")
+            st.json(result, expanded=False)
 
-with col2:
-    st.metric(
-        label="Model",
-        value=model_name,
-    )
+        except Exception as exc:
+            st.exception(exc)
 
-st.divider()
+with st.expander("Project Information"):
+    st.markdown("""
+Version 1 includes:
 
-with st.expander("Project Information", expanded=False):
+- Upload image
+- Preview image
+- Real inference
+- Prediction
+- Confidence
+- Inference time
 
-    st.markdown(
-        """
-### Hybrid Quantum-Classical Image Classification
-
-This application performs image classification using pretrained models.
-
-Available models:
-
-- Artificial Neural Network (ANN)
-- Convolutional Neural Network (CNN)
-- Quantum Convolutional Neural Network (QCNN)
-
-The models were trained on:
-
-- MNIST
-- Fashion-MNIST
-
-Phase 2 will connect this interface to the reusable inference engine.
-"""
-    )
-
-st.success(
-    "Phase 2.1 complete: User interface initialized."
-)
+Next version will add probability charts and Top-3 predictions.
+""")
