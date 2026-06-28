@@ -8,3 +8,8 @@ plotly==6.1.2
 pillow==11.2.1
 
 scikit-learn==1.7.0
+
+torch==2.7.1
+torchvision==0.22.1
+
+pennylane==0.42.3
